@@ -32,8 +32,6 @@ const Index = () => {
           }
           
           if (prev <= 5 && audioRef.current) {
-            const beepFrequency = 800;
-            const beepDuration = 0.1;
             const audioContext = new AudioContext();
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
@@ -41,14 +39,14 @@ const Index = () => {
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.frequency.value = beepFrequency;
+            oscillator.frequency.value = 1200;
             oscillator.type = 'square';
             
             gainNode.gain.setValueAtTime(1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + beepDuration);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
             
             oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + beepDuration);
+            oscillator.stop(audioContext.currentTime + 0.15);
           }
           
           return prev - 1;
